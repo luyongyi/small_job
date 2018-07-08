@@ -15,4 +15,5 @@ int main()
     cout << "second" << tv.tv_sec - ts.tv_sec << endl;
     cout << "milsec:" << tv.tv_sec * 1000 + tv.tv_usec / 1000 - ts.tv_sec * 1000 - ts.tv_usec / 1000 << endl;
     printf("millisecond:%ld\n",tv.tv_sec*1000 + tv.tv_usec/1000-ts.tv_sec*1000-ts.tv_usec/1000);
+    printf("microsecond:%ld\n",ts.tv_sec*1000000-tv.tv_sec*1000000 +ts.tv_usec- tv.tv_usec); 
     }
