@@ -4,16 +4,57 @@
 #include <sys/time.h>
 #include <unistd.h>
 #include <cstdio>
+#include <wiringPi.h>
+
 using namespace std;
+
+const unsigned int gpio_point = 0;
 
 int main()
 {
-    struct timeval tv, ts;
-    gettimeofday(&tv, NULL);
-    sleep(3);
-    gettimeofday(&ts, NULL);
-    cout << "second" << tv.tv_sec - ts.tv_sec << endl;
-    cout << "milsec:" << tv.tv_sec * 1000 + tv.tv_usec / 1000 - ts.tv_sec * 1000 - ts.tv_usec / 1000 << endl;
-    printf("millisecond:%ld\n",tv.tv_sec*1000 + tv.tv_usec/1000-ts.tv_sec*1000-ts.tv_usec/1000);
-    printf("microsecond:%ld\n",ts.tv_sec*1000000-tv.tv_sec*1000000 +ts.tv_usec- tv.tv_usec); 
+start:
+    int recall = 0;
+
+    wiringPiSetup();
+    pinMode(gpio_point, OUTPUT);
+    digitalWrite(gpio_point, HIGH);
+    usleep(80);
+
+    digitalWrite(gpio_point, LOW);
+    usleep(20);
+    digitalWrite(gpio_point, HIGH);
+
+    pinMode(gpio_point, INPUT);
+
+    while (!digitalRead(gpio_point))
+    {
+        recall++;
+        usleep(10);
     }
+    if (recall < 6)
+    {
+        recall = 0;
+        sleep(3);
+        goto start;
+    }
+    recall = 1;
+
+    while (digitalRead(gpio_point))
+    {
+        recall++;
+        usleep(10);
+    }
+    if (recall < 6)
+    {
+        recall = 0;
+        sleep(3);
+        goto start;
+    }
+    cout << "recall success" << endl;
+    sleep(3);
+    goto start;
+    
+    for (int i = 0; i < 40; i++)
+    {
+    }
+}
