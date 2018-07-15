@@ -8,14 +8,14 @@
 
 using namespace std;
 
-const unsigned int gpio_point = 0;
+const unsigned int gpio_point = 7;
 
 int main()
 {
-start:
-    int recall = 0;
 
+    int recall = 0;
     wiringPiSetup();
+start:
     pinMode(gpio_point, OUTPUT);
     digitalWrite(gpio_point, HIGH);
     usleep(80);
