@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <iostream>
 #include <ctime>
 #include <stdlib.h>
@@ -9,9 +10,14 @@
 using namespace std;
 
 const unsigned int gpio_point = 7;
+=======
+#include <wiringpi.h>
+>>>>>>> 9ddfd54eb6f666d1fc5787d039b9469deba0ae7b
 
+#define LED 25
 int main()
 {
+<<<<<<< HEAD
 
     int recall = 0;
     wiringPiSetup();
@@ -55,6 +61,14 @@ start:
     goto start;
     
     for (int i = 0; i < 40; i++)
+=======
+    wiringPiSetup();
+    pinMode(LED, OUTPUT);
+    while (true)
+>>>>>>> 9ddfd54eb6f666d1fc5787d039b9469deba0ae7b
     {
+        digitalWrite(LED, HIGH);
+        sleep(1);
+        digitalWrite(LED, LOW);
     }
 }
