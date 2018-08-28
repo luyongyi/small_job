@@ -4,6 +4,8 @@ using namespace std;
 
 int main()
 {
+    wiringPiSetup();
+    
     pinMode(1, INPUT);
 
     while (1)
